@@ -1,1 +1,74 @@
 
+import time
+import csv
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+
+class ExploratoryTester:
+    def __init__(self, browser="chrome"):
+        if browser.lower() == "chrome":
+            self.driver = webdriver.Chrome()
+        elif browser.lower() == "firefox":
+            self.driver = webdriver.Firefox()
+        else:
+            raise ValueError("Unsupported browser")
+
+    def explore_application(self):
+        try:
+            # Navigate to the application
+            self.driver.get("https://example.com")
+
+            # Perform exploratory actions
+            self.login()
+            self.explore_dashboard()
+            self.search_and_explore_results()
+            self.perform_logout()
+
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
+
+        finally:
+            # Close the browser
+            self.driver.quit()
+
+    def login(self):
+        # Example: Automated login
+        username_input = self.driver.find_element(By.ID, "username")
+        password_input = self.driver.find_element(By.ID, "password")
+        login_button = self.driver.find_element(By.XPATH, "//button[contains(text(),'Login')]")
+
+        username_input.send_keys("your_username")
+        password_input.send_keys("your_password")
+        login_button.click()
+
+    def explore_dashboard(self):
+        # Example: Navigate through the dashboard
+        dashboard_link = self.driver.find_element(By.LINK_TEXT, "Dashboard")
+        dashboard_link.click()
+
+        time.sleep(2)  # Introducing a delay to simulate exploration
+
+    def search_and_explore_results(self):
+        # Example: Perform a search and explore the results
+        search_input = self.driver.find_element(By.ID, "search-box")
+        search_input.send_keys("exploration")
+        search_input.send_keys(Keys.RETURN)
+
+        time.sleep(2)  # Introducing a delay to simulate exploration
+
+        # Click on the first result
+        first_result = self.driver.find_element(By.XPATH, "//div[@class='search-results']/div[1]")
+        first_result.click()
+
+        time.sleep(2)  # Introducing a delay to simulate exploration
+
+    def perform_logout(self):
+        # Example: Automated logout
+        logout_button = self.driver.find_element(By.XPATH, "//button[contains(text(),'Logout')]")
+        logout_button.click()
+
+if __name__ == "__main__":
+    # Initialize and run the exploratory testing
+    explorer = ExploratoryTester(browser="chrome")
+    explorer.explore_application()
