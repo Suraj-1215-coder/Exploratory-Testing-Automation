@@ -1,0 +1,9 @@
+/ExploratoryTestingAutomation
+├── scripts
+│   ├── exploratory_tester.py
+├── test_data
+│   ├── test_data.csv
+├── docs
+│   ├── README.md
+├── .gitignore
+└── requirements.txt
